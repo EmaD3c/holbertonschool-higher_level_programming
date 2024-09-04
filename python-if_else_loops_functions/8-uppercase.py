@@ -9,4 +9,4 @@ def uppercase(str):
         else:
             # Print non-lowercase characters as they are
             print(char, end='')
-    print()  # Print a new line at the end
+            
