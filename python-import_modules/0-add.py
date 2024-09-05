@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 
-# Runs the code below only if this file is executed directly, not when imported.
+# Runs the code below only if this file is executed directly, not when imported
 if __name__ == "__main__":
-  
-  from add_0 import add  # Import the add function from add_0.py
 
-# Assign the values to variables a and b
-a = 1
-b = 2
+    from add_0 import add  # Import the add function from add_0.py
 
-# Print the result using string formatting
-print("{} + {} = {}".format(a, b, add(a, b)))
+    # Assign the values to variables a and b
+    a = 1
+    b = 2
+
+    # Print the result using string formatting
+    print("{} + {} = {}".format(a, b, add(a, b)))
