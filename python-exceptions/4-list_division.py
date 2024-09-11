@@ -15,15 +15,19 @@ def list_division(my_list_1, my_list_2, list_length):
 
             result = my_list_1[i] / my_list_2[i]
 
+# Si une division par zéro se produit, affiche "division by 0".
         except ZeroDivisionError:
             print("division by 0")
             result = 0
+# Si l'un des éléments n'est pas un entier ou un flottant, affiche "wrong type"
         except TypeError:
             print("wrong type")
             result = 0
+#  Si l'un des indices dépasse la longueur des listes, affiche "out of range".
         except IndexError:
             print("out of range")
             result = 0
+# Ajoute le résultat (ou 0 en cas d'erreur) à la liste result_list.
         finally:
             result_list.append(result)
 
