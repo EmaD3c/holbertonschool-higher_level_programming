@@ -4,13 +4,12 @@ a new matrix with elements rounded to 2 decimal places."""
 
 
 def matrix_divided(matrix, div):
-
     """
     Divides all elements of a matrix by div.
 
     Args:
         matrix (list of lists): A list of lists of integers or floats.
-        div (int or float): The number by which to divide all matrix element
+        div (int or float): The number by which to divide all matrix elements.
 
     Returns:
         list of lists: A new matrix with elements divided by div, rounded
@@ -22,7 +21,10 @@ def matrix_divided(matrix, div):
                    or if div is not a number (integer or float).
         ZeroDivisionError: If div is zero.
     """
-    errormsg = "matrix must be a matrix (list of lists) of integers/floats"
+
+    # Error message to be used in multiple places
+    error_msg = "matrix must be a matrix (list of lists) of integers/floats"
+
     # Check if div is a number (integer or float)
     if not isinstance(div, (int, float)):
         raise TypeError("div must be a number")
@@ -33,16 +35,16 @@ def matrix_divided(matrix, div):
 
     # Check if matrix is a list of lists and not empty
     if not isinstance(matrix, list) or len(matrix) == 0:
-        raise TypeError("errormsg")
+        raise TypeError(error_msg)
 
     # Initialize the length of the first row
     line_len = None
 
     # Validate each row in the matrix
     for line in matrix:
-        # Check if each element in matrix is a list and not empty
+        # Check if each row is a list and not empty
         if not isinstance(line, list) or len(line) == 0:
-            raise TypeError("errormsg")
+            raise TypeError(error_msg)
 
         # Check if all rows have the same length
         if line_len is None:
@@ -53,8 +55,7 @@ def matrix_divided(matrix, div):
         # Check if all elements in each row are either integers or floats
         for num in line:
             if not isinstance(num, (int, float)):
-                raise TypeError("errormsg")
+                raise TypeError(error_msg)
 
-    # Return a new matrix with each element
-    #  divided by div and rounded to 2 decimal places
+    # Return new matrix with each element divided by div and to 2 decimal place
     return [[round(num / div, 2) for num in line] for line in matrix]
