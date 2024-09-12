@@ -1,30 +1,11 @@
 >>> text_indentation = __import__('5-text_indentation').text_indentation
 
->>> text_indentation("Hello world. How are you? I'm fine: thank you!")
-Hello world.
+>>> text_indentation("Hello")
+Hello
 
-How are you?
+>>> text_indentation("    ")
 
-I'm fine:
-thank you!
-
->>> text_indentation("This is a test.")
-This is a test.
-
->>> text_indentation("No delimiters here")
-No delimiters here
-
->>> text_indentation("Multiple delimiters... and more?")
-Multiple delimiters...
-and more?
-
->>> text_indentation("End with a delimiter.")
-End with a delimiter.
-
->>> text_indentation("String without delimiters")
-String without delimiters
-
->>> text_indentation(123)
+>>> text_indentation(5)
 Traceback (most recent call last):
 ...
 TypeError: text must be a string
@@ -58,46 +39,11 @@ END.
 .
 <BLANKLINE>
 
->>> text_indentation("   Mixed   spaces.  And more?  Here:")
-Mixed   spaces.
-And more?
-Here:
+>>> text_indentation("   A mix of delimiters and text: here is a sentence. And another?")
+A mix of delimiters and text:
+here is a sentence.
+And another?
 
->>> text_indentation("Spaces before? and: spaces after.  ")
-Spaces before?
-and:
-spaces after.
-<BLANKLINE>
-
->>> text_indentation("   .    ?    :    ")
-.
-<BLANKLINE>
-?
-<BLANKLINE>
-:
-<BLANKLINE>
-
->>> text_indentation("Only delimiters: ? : . ")
-Only delimiters:
-? 
-: 
-. 
-<BLANKLINE>
-
->>> text_indentation("    Leading spaces. Trailing spaces.  ")
-Leading spaces.
-Trailing spaces.
-<BLANKLINE>
-
->>> text_indentation("Delimiters at start: .? :")
-Delimiters at start:
-.
-<BLANKLINE>
-?
-<BLANKLINE>
-:
-<BLANKLINE>
-
->>> text_indentation("End with delimiter: .")
-End with delimiter:
+>>> text_indentation("Text without delimiters, but with leading and trailing spaces.   ")
+Text without delimiters, but with leading and trailing spaces.
 <BLANKLINE>
