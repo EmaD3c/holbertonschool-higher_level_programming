@@ -1,11 +1,38 @@
 >>> say_my_name = __import__('3-say_my_name').say_my_name
+>>> say_my_name = __import__('3-say_my_name').say_my_name
+
+# Test standard avec prénom et nom
 >>> say_my_name("John", "Smith")
 My name is John Smith
->>> say_my_name("Walter", "White")
-My name is Walter White
+
+# Test avec uniquement le prénom
 >>> say_my_name("Bob")
 My name is Bob 
->>> say_my_name(12, "White")
+
+# Test avec un prénom et un nom comprenant des espaces
+>>> say_my_name("Anna", "Marie Smith")
+My name is Anna Marie Smith
+
+# Test avec des caractères spéciaux dans les noms
+>>> say_my_name("Jean-Luc", "Picard")
+My name is Jean-Luc Picard
+
+# Test avec un prénom et un nom vides
+>>> say_my_name("", "")
+My name is  
+
+# Test avec un prénom vide et un nom fourni
+>>> say_my_name("", "Doe")
+My name is  Doe
+
+# Test avec des types incorrects
+>>> say_my_name(123, "Doe")
 Traceback (most recent call last):
     ...
 TypeError: first_name must be a string
+
+>>> say_my_name("Jane", 456)
+Traceback (most recent call last):
+    ...
+TypeError: last_name must be a string
+
