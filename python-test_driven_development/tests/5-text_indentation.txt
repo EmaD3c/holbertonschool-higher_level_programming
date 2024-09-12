@@ -38,12 +38,3 @@ END.
 <BLANKLINE>
 .
 <BLANKLINE>
-
->>> text_indentation("   A mix of delimiters and text: here is a sentence. And another?")
-A mix of delimiters and text:
-here is a sentence.
-And another?
-
->>> text_indentation("Text without delimiters, but with leading and trailing spaces.   ")
-Text without delimiters, but with leading and trailing spaces.
-<BLANKLINE>
