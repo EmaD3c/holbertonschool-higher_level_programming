@@ -46,7 +46,7 @@ class Square:
 
     def area(self):
         """Calculates the area of the square."""
-        return self.__size ** 2
+        return self.__size * self.__size
 
     def my_print(self):
         """Prints the square using the character '#'.
@@ -56,8 +56,8 @@ class Square:
         if self.__size == 0:
             print()
         else:
-            for _ in range(self.__position[1]):
+            for i in range(self.__position[1]):
                 print()  # Print leading empty lines based on position[1]
-            for _ in range(self.__size):
+            for i in range(self.__size):
                 # Print each line with leading spaces
                 print(" " * self.__position[0] + "#" * self.__size)
