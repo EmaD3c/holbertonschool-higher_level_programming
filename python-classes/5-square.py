@@ -13,12 +13,10 @@ class Square:
         """Initializes the square with an optional size."""
         self.size = size  # Use the setter to validate and set the size
 
-    @property
     def size(self):
         """Getter method to retrieve the size."""
         return self.__size
 
-    @size.setter
     def size(self, value):
         """Setter method to set the size with validation."""
         if not isinstance(value, int):
