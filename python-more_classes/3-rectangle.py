@@ -2,7 +2,7 @@
 class Rectangle:
     """
     Class that defines a rectangle.
-    
+
     Attributes:
         width (int): The width of the rectangle.
         height (int): The height of the rectangle.
@@ -11,11 +11,11 @@ class Rectangle:
     def __init__(self, width=0, height=0):
         """
         Initializes the rectangle with optional width and height.
-        
+
         Args:
             width (int): The width of the rectangle. Default is 0.
             height (int): The height of the rectangle. Default is 0.
-        
+
         Raises:
             TypeError: If width or height is not an integer.
             ValueError: If width or height is less than 0.
@@ -27,7 +27,7 @@ class Rectangle:
     def width(self):
         """
         Getter for the width attribute.
-        
+
         Returns:
             int: The width of the rectangle.
         """
@@ -37,10 +37,10 @@ class Rectangle:
     def width(self, value):
         """
         Setter for the width attribute. Validates the value.
-        
+
         Args:
             value (int): The width of the rectangle.
-        
+
         Raises:
             TypeError: If width is not an integer.
             ValueError: If width is less than 0.
@@ -55,7 +55,7 @@ class Rectangle:
     def height(self):
         """
         Getter for the height attribute.
-        
+
         Returns:
             int: The height of the rectangle.
         """
@@ -65,10 +65,10 @@ class Rectangle:
     def height(self, value):
         """
         Setter for the height attribute. Validates the value.
-        
+
         Args:
             value (int): The height of the rectangle.
-        
+
         Raises:
             TypeError: If height is not an integer.
             ValueError: If height is less than 0.
@@ -82,7 +82,7 @@ class Rectangle:
     def area(self):
         """
         Calculates the area of the rectangle.
-        
+
         Returns:
             int: The area of the rectangle (width * height).
         """
@@ -91,7 +91,7 @@ class Rectangle:
     def perimeter(self):
         """
         Calculates the perimeter of the rectangle.
-        
+
         Returns:
             int: The perimeter of the rectangle (2 * (width + height)).
                  Returns 0 if width or height is 0.
@@ -102,8 +102,8 @@ class Rectangle:
 
     def __str__(self):
         """
-        Returns a string representation of the rectangle using the character '#'.
-        
+        Return a string representation of the rectangle using the character '#'
+
         Returns:
             str: The rectangle as a string of '#' characters.
                  Returns an empty string if width or height is 0.
