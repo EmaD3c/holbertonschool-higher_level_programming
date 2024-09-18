@@ -103,7 +103,13 @@ class Rectangle:
         """
         if self.__width == 0 or self.__height == 0:
             return ""
-        return (str(self.print_symbol) * self.__width + "\n") * self.__height
+
+        rectangle = ""
+        for line in range(self.__height):
+            rectangle += str(self.print_symbol) * self.__width
+            if line != (self.__height - 1):
+                rectangle += '\n'
+        return rectangle
 
     def __repr__(self):
         """
