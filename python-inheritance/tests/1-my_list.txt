@@ -1,0 +1,28 @@
+# Test 1: Append elements to the list and print the original list
+>>> my_list = MyList()
+>>> my_list.append(1)
+>>> my_list.append(4)
+>>> my_list.append(2)
+>>> my_list.append(3)
+>>> my_list.append(5)
+>>> print(my_list)
+[1, 4, 2, 3, 5]
+
+# Test 2: Print the list in sorted order
+>>> my_list.print_sorted()
+[1, 2, 3, 4, 5]
+
+# Test 3: Ensure the original list is not modified
+>>> print(my_list)
+[1, 4, 2, 3, 5]
+
+# Test 4: Check with an empty list
+>>> empty_list = MyList()
+>>> empty_list.print_sorted()
+[]
+
+# Test 5: Check with a list of one element
+>>> single_element_list = MyList()
+>>> single_element_list.append(42)
+>>> single_element_list.print_sorted()
+[42]
