@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
-Module 7-base_geometry
-Defines the class BaseGeometry with methods for area calculation and validation
+Module base_geometry
+Defines the class BaseGeometry with methods for area calculation and validation.
 """
 
 
