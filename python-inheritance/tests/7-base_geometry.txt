@@ -1,44 +1,34 @@
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
-
 # Test 1: Create an instance of BaseGeometry
 >>> bg = BaseGeometry()
+# Expected Output: No exception raised
 
-# Test 2: Validate an integer
 >>> bg.integer_validator("my_int", 12)
 # Expected Output: No exception raised
-# Actual Output: (Check if no exception is raised)
 
-# Test 3: Validate another integer
 >>> bg.integer_validator("width", 89)
 # Expected Output: No exception raised
-# Actual Output: (Check if no exception is raised)
 
-# Test 4: Validate a string
 >>> bg.integer_validator("name", "John")
 # Expected Output: TypeError: name must be an integer
-# Actual Output: (Capture and display the exception raised)
 
-# Test 5: Validate zero
 >>> bg.integer_validator("age", 0)
 # Expected Output: ValueError: age must be greater than 0
-# Actual Output: (Capture and display the exception raised)
 
-# Test 6: Validate a negative integer
 >>> bg.integer_validator("distance", -4)
 # Expected Output: ValueError: distance must be greater than 0
-# Actual Output: (Capture and display the exception raised)
 
-# Test 7: Validate a float
 >>> bg.integer_validator("test_float", 3.5)
 # Expected Output: TypeError: test_float must be an integer
-# Actual Output: (Capture and display the exception raised)
 
-# Test 8: Validate None
 >>> bg.integer_validator("test_none", None)
 # Expected Output: TypeError: test_none must be an integer
-# Actual Output: (Capture and display the exception raised)
 
-# Test 9: Call area method
+>>> bg.integer_validator("large_number", 1000000)
+# Expected Output: No exception raised
+
+>>> bg.integer_validator("small_positive", 1)
+# Expected Output: No exception raised
+
 >>> bg.area()
 # Expected Output: Exception: area() is not implemented
-# Actual Output: (Capture and display the exception raised)
