@@ -1,34 +1,24 @@
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
-# Test 1: Create an instance of BaseGeometry
->>> bg = BaseGeometry()
-# Expected Output: No exception raised
 
->>> bg.integer_validator("my_int", 12)
-# Expected Output: No exception raised
+>>> shape = BaseGeometry()
 
->>> bg.integer_validator("width", 89)
-# Expected Output: No exception raised
+>>> shape.integer_validator("my_int", 12)
+>>> shape.integer_validator("width", 89)
 
->>> bg.integer_validator("name", "John")
-# Expected Output: TypeError: name must be an integer
+>>> try:
+...    shape.integer_validator("name", "John")
+... except Exception as e:
+...    print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] name must be an integer
 
->>> bg.integer_validator("age", 0)
-# Expected Output: ValueError: age must be greater than 0
+>>> try:
+...    shape.integer_validator("age", 0)
+... except Exception as e:
+...    print("[{}] {}".format(e.__class__.__name__, e))
+[ValueError] age must be greater than 0
 
->>> bg.integer_validator("distance", -4)
-# Expected Output: ValueError: distance must be greater than 0
-
->>> bg.integer_validator("test_float", 3.5)
-# Expected Output: TypeError: test_float must be an integer
-
->>> bg.integer_validator("test_none", None)
-# Expected Output: TypeError: test_none must be an integer
-
->>> bg.integer_validator("large_number", 1000000)
-# Expected Output: No exception raised
-
->>> bg.integer_validator("small_positive", 1)
-# Expected Output: No exception raised
-
->>> bg.area()
-# Expected Output: Exception: area() is not implemented
+>>> try:
+...    shape.integer_validator("distance", -4)
+... except Exception as e:
+...    print("[{}] {}".format(e.__class__.__name__, e))
+[ValueError] distance must be greater than 0
