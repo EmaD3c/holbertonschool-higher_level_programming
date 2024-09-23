@@ -1,4 +1,4 @@
-# Test 1: Append elements to the list and print the original list
+>>> MyList = __import__('1-my_list').MyList  # Correct import statement
 >>> my_list = MyList()
 >>> my_list.append(1)
 >>> my_list.append(4)
