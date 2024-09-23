@@ -1,4 +1,6 @@
 >>> MyList = __import__('1-my_list').MyList
+
+# Test 1: Append and print the list
 >>> my_list = MyList()
 >>> my_list.append(1)
 >>> my_list.append(4)
@@ -8,17 +10,48 @@
 >>> print(my_list)
 [1, 4, 2, 3, 5]
 
+# Test 2: Print the list sorted
 >>> my_list.print_sorted()
 [1, 2, 3, 4, 5]
 
+# Test 3: Ensure the original list is not modified
 >>> print(my_list)
 [1, 4, 2, 3, 5]
 
+# Test 4: Print an empty list sorted
 >>> empty_list = MyList()
 >>> empty_list.print_sorted()
 []
 
+# Test 5: List with one element
 >>> single_element_list = MyList()
 >>> single_element_list.append(42)
 >>> single_element_list.print_sorted()
 [42]
+
+# Test 6: List with negative numbers
+>>> negative_list = MyList()
+>>> negative_list.append(-1)
+>>> negative_list.append(-3)
+>>> negative_list.append(0)
+>>> negative_list.append(2)
+>>> negative_list.print_sorted()
+[-3, -1, 0, 2]
+
+# Test 7: List with duplicate elements
+>>> duplicate_list = MyList()
+>>> duplicate_list.append(4)
+>>> duplicate_list.append(4)
+>>> duplicate_list.append(2)
+>>> duplicate_list.append(2)
+>>> duplicate_list.append(1)
+>>> duplicate_list.print_sorted()
+[1, 2, 2, 4, 4]
+
+# Test 8: List with all elements being the same
+>>> same_elements_list = MyList()
+>>> same_elements_list.append(7)
+>>> same_elements_list.append(7)
+>>> same_elements_list.append(7)
+>>> same_elements_list.print_sorted()
+[7, 7, 7]
