@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Create an iter class that extends the Python list class
+Create an iter class that inherits from both a Fish class and a Bird
 """
 
 
