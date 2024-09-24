@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 """
-Create an abstract class that extends the Python list class
+Create a list class that extends the Python list class
 """
 
 
 class VerboseList(list):
-    """Abstract class VerboseList"""
+    """list class VerboseList"""
 
     def append(self, item):
         """append method"""
