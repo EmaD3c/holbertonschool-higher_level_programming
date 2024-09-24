@@ -21,7 +21,7 @@ class Shape(ABC):
 
 
 class Circle(Shape):
-    """Circle class inherits from Shape"""
+    """Circle class inherits Shape"""
 
     def __init__(self, radius):
         """radius used to calculate both the area and the perimeter"""
@@ -35,7 +35,7 @@ class Circle(Shape):
 
 
 class Rectangle(Shape):
-    """Rectangle class inherits from Shape"""
+    """Rectangle class inherits Shape"""
 
     def __init__(self, height, width):
         self.height = height
