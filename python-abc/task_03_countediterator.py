@@ -15,8 +15,14 @@ class CountedIterator:
         return self  # Return the iterator object itself
 
     def __next__(self):
-        self.count += 1  # Incrémente le compteur à chaque appel
-        return next(self.iterator)  # Récupère le next élément de l'itérateur
+        # si une exception est levée par next(self.iterator)
+        try:
+            item = next(self.iterator)
+            self.count += 1
+            return item
+        except StopIteration:
+            # le bloc de code qui suit cette ligne sera exécuté.
+            raise StopIteration
 
     def get_count(self):
         return self.count
