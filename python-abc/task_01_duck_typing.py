@@ -25,7 +25,7 @@ class Circle(Shape):
 
     def __init__(self, radius):
         """radius used to calculate both the area and the perimeter"""
-        self.radius = radius
+        self.radius = abs(radius)
 
     def area(self):
         return pi * (self.radius ** 2)
