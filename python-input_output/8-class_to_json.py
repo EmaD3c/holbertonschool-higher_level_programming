@@ -2,7 +2,6 @@
 """
  returns the dictionary description with simple data structure of an object
 """
-import json
 
 
 def class_to_json(obj):
