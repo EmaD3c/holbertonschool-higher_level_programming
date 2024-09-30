@@ -19,17 +19,15 @@ class Student:
         If attrs is a list of strings, only those attributes are retrieved.
         Otherwise, all attributes are retrieved.
 
-        Args:
-            attrs (list): A list of attribute names to retrieve (optional).
-
-        Returns:
-            dict: A dictionary representation of the Student instance.
         """
         if attrs is None:
             return self.__dict__
 
-        # Filter and return only the attributes in the provided list
-        return {attr: self.__dict__[attr] for attr in attrs if attr in self.__dict__}
+        result = {}
+        for attr in attrs:
+            if attr in self.__dict__:
+                result[attr] = self.__dict__[attr]
+        return result
 
     def reload_from_json(self, json):
         """
