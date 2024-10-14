@@ -35,6 +35,7 @@ class http_request(http.server.BaseHTTPRequestHandler):
             self.end_headers()
             json_data = {"version": "1.0",
                          "description": "A simple API built with http.server"}
+            self.wfile.write(json.dumps(json_data).encode())
 
         elif self.path == "/status":
             # Serve API status
