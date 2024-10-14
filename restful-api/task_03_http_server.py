@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-
+'''
+Handle different types of HTTP requests
+'''
 import json
 import http.server
 
