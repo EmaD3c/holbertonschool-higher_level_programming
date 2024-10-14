@@ -49,6 +49,5 @@ class http_request(http.server.BaseHTTPRequestHandler):
 PORT = 8000
 
 # Configurer et démarrer le serveur HTTP
-with http.server.HTTPServer(("127.0.0.1", PORT), http_request) as httpd:
-    print(f"Serving on port {PORT}...")
+with http.server.HTTPServer(("", PORT), http_request) as httpd:
     httpd.serve_forever()
