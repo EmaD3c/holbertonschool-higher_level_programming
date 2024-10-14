@@ -38,12 +38,10 @@ class http_request(http.server.BaseHTTPRequestHandler):
             self.wfile.write(json.dumps(json_data).encode())
 
         elif self.path == "/status":
-            # Serve API status
             self.send_response(200)
-            self.send_header("Content-type", "application/json")
+            self.send_header("Content-Type", "text/plain")
             self.end_headers()
-            status = {"status": "OK"}
-            self.wfile.write(json.dumps(status).encode("utf-8"))
+            self.wfile.write(b"OK")
 
         else:
             # Handle undefined endpoints with 404 Not Found
