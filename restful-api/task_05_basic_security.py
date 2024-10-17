@@ -1,3 +1,9 @@
+#!/usr/bin/python3
+'''
+Flask REST API for handling user data
+'''
+
+
 from flask import Flask, jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_httpauth import HTTPBasicAuth
