@@ -28,40 +28,41 @@ users = {
 
 
 # JWT error handlers
+
 @jwt.unauthorized_loader
 def handle_unauthorized_error(err):
-    """Handles missing or invalid JWT"""
+    """Return error for missing/invalid JWT"""
     return jsonify({"error": "Missing or invalid token"}), 401
 
 
 @jwt.invalid_token_loader
 def handle_invalid_token_error(err):
-    """Handles invalid JWT"""
+    """Return error for invalid JWT"""
     return jsonify({"error": "Invalid token"}), 401
 
 
 @jwt.expired_token_loader
 def handle_expired_token_error(err):
-    """Handles expired JWT"""
+    """Return error for expired JWT"""
     return jsonify({"error": "Token has expired"}), 401
 
 
 @jwt.revoked_token_loader
 def handle_revoked_token_error(err):
-    """Handles revoked JWT"""
+    """Return error for revoked JWT"""
     return jsonify({"error": "Token has been revoked"}), 401
 
 
 @jwt.needs_fresh_token_loader
 def handle_needs_fresh_token_error(err):
-    """Handles requests that need a fresh JWT"""
+    """Return error for requests requiring fresh JWT"""
     return jsonify({"error": "Fresh token required"}), 401
 
 
 # Basic Auth verification
 @auth.verify_password
 def verify_password(username, password):
-    """Verifies username and password with Basic Auth"""
+    """Check if username and password are valid"""
     if username in users:
         return check_password_hash(users[username], password)
     return False
@@ -70,7 +71,7 @@ def verify_password(username, password):
 # Route to get JWT token after login
 @app.route("/login", methods=["POST"])
 def user_login():
-    """Authenticates user and returns JWT token"""
+    """Authenticate user and return JWT token"""
     username = request.json["username"]
     password = request.json["password"]
 
@@ -88,7 +89,7 @@ def user_login():
 @app.route('/jwt_protected', methods=['GET'])
 @jwt_required()
 def jwt_protected():
-    """Protected route requiring a valid JWT"""
+    """Access route protected by JWT"""
     current_user = get_jwt_identity()
     return jsonify({"message": f"Welcome, {current_user['username']}!"}), 200
 
@@ -97,14 +98,14 @@ def jwt_protected():
 @app.route('/hash_protected')
 @auth.login_required
 def hash_protected():
-    """Protected route requiring Basic Auth"""
+    """Access route protected by Basic Auth"""
     return jsonify({"message": "Password hash and check succeeded!"})
 
 
 # Route to hash and verify password
 @app.route('/hash', methods=['POST'])
 def hash_password():
-    """Hashes a given password and verifies it"""
+    """Hash and verify a given password"""
     data = request.get_json()
     if 'password' not in data:
         return jsonify({"error": "Password is required"}), 400
