@@ -96,6 +96,7 @@ def user_login():
     )
     return jsonify(access_token=access_token), 200
 
+
 # JWT-protected route
 @app.route('/jwt_protected', methods=['GET'])
 @jwt_required()
