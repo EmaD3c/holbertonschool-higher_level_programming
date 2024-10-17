@@ -91,10 +91,10 @@ def user_login():
     if not check_password_hash(users[username], password):
         return jsonify({"error": "Invalid credentials"}), 401
 
-    identity = {"username": username, "role": user["role"]}
-    access_token = create_access_token(identity)
+    access_token = create_access_token(
+        identity={"username": username, "role": user["role"]}
+    )
     return jsonify(access_token=access_token), 200
-
 
 # JWT-protected route
 @app.route('/jwt_protected', methods=['GET'])
