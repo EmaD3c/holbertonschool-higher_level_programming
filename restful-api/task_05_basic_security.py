@@ -22,11 +22,20 @@ jwt = JWTManager(app)
 
 # Example users with hashed passwords
 users = {
-    "user1": {"username": "user1", "password": generate_password_hash("password"), "role": "user"},
-    "admin1": {"username": "admin1", "password": generate_password_hash("password"), "role": "admin"}
+    "user1": {
+        "username": "user1",
+        "password": generate_password_hash("password"),
+        "role": "user",
+    },
+    "admin1": {
+        "username": "admin1",
+        "password": generate_password_hash("password"),
+        "role": "admin",
+    },
 }
 
 # JWT error handlers
+
 
 @jwt.unauthorized_loader
 def handle_unauthorized_error(err):
@@ -63,8 +72,8 @@ def handle_needs_fresh_token_error(err):
 def verify_password(username, password):
     """Check if username and password are valid"""
     if username in users:
-        return check_password_hash(users[username], password)
-    return False
+        return check_password_hash(users[username]["password"], password)
+    return None
 
 
 # Route to get JWT token after login
@@ -74,13 +83,16 @@ def user_login():
     username = request.json["username"]
     password = request.json["password"]
 
+    user = users.get(username)
+
     if username not in users:
         return jsonify({"error": "Invalid credentials"}), 401
 
     if not check_password_hash(users[username], password):
         return jsonify({"error": "Invalid credentials"}), 401
 
-    access_token = create_access_token(identity={"username": username})
+    identity = {"username": username, "role": user["role"]}
+    access_token = create_access_token(identity)
     return jsonify(access_token=access_token), 200
 
 
@@ -89,32 +101,24 @@ def user_login():
 @jwt_required()
 def jwt_protected():
     """Access route protected by JWT"""
-    current_user = get_jwt_identity()
-    return jsonify({"message": f"Welcome, {current_user['username']}!"}), 200
+    return "JWT Auth: Access Granted"
 
 
 # Basic Auth-protected route
-@app.route('/hash_protected')
+@app.route('/basic-protected')
 @auth.login_required
 def hash_protected():
     """Access route protected by Basic Auth"""
-    return jsonify({"message": "Password hash and check succeeded!"})
+    return "Basic Auth: Access Granted"
 
 
-# Route to hash and verify password
-@app.route('/hash', methods=['POST'])
-def hash_password():
-    """Hash and verify a given password"""
-    data = request.get_json()
-    if 'password' not in data:
-        return jsonify({"error": "Password is required"}), 400
-
-    hashed_password = generate_password_hash(data['password'])
-
-    if not check_password_hash(hashed_password, data['password']):
-        return jsonify({"error": "Password did not correspond"}), 400
-
-    return jsonify({"hashed_password": hashed_password})
+@app.route("/admin-only", methods=["GET"])
+@jwt_required()
+def admin_only():
+    """Access to admin only."""
+    if get_jwt_identity()["role"] != "admin":
+        return {"error": "Admin access required"}, 403
+    return "Admin Access: Granted", 200
 
 
 if __name__ == '__main__':
