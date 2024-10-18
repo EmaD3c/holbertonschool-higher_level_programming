@@ -80,6 +80,25 @@ def verify_password(username, password):
 
 
 # Route to get JWT token after login
+@app.route("/login", methods=["POST"])
+def user_login():
+    """Authenticate user and return JWT token"""
+    username = request.json["username"]
+    password = request.json["password"]
+
+    user = users.get(username)
+
+    if not user:
+        return jsonify({"error": "Invalid credentials"}), 401
+
+    if not check_password_hash(user["password"], password):
+        return jsonify({"error": "Invalid credentials"}), 401
+
+    access_token = create_access_token(
+        identity={"username": username, "role": user["role"]}
+    )
+    return jsonify(access_token=access_token), 200
+
 
 @app.route("/login", methods=["POST"])
 def user_login():
