@@ -17,6 +17,9 @@ app = Flask(__name__)
 # Configure JWT secret key
 app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'
 
+# Configure secret key
+app.config['SECRET_KEY'] = 'your__secret_key'
+
 # Initialize JWT Manager
 jwt = JWTManager(app)
 
@@ -102,7 +105,7 @@ def user_login():
 @jwt_required()
 def jwt_protected():
     """Access route protected by JWT"""
-    return "JWT Auth: Access Granted"
+    return "JWT Auth: Access Granted", 200
 
 
 # Basic Auth-protected route
@@ -110,7 +113,7 @@ def jwt_protected():
 @auth.login_required
 def hash_protected():
     """Access route protected by Basic Auth"""
-    return "Basic Auth: Access Granted"
+    return "Basic Auth: Access Granted", 200
 
 
 @app.route("/admin-only", methods=["GET"])
@@ -123,4 +126,4 @@ def admin_only():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
