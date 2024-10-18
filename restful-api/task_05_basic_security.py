@@ -120,7 +120,7 @@ def user_login():
 
 
 # JWT-protected route
-@app.route("/jwt-cprotected")
+@app.route("/jwt-protected")
 @jwt_required()
 def jwt_protected():
     """Access route protected by JWT"""
