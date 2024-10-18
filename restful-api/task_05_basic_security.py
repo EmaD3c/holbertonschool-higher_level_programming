@@ -15,10 +15,10 @@ auth = HTTPBasicAuth()
 app = Flask(__name__)
 
 # Configure JWT secret key
-app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'
+app.config["JWT_SECRET_KEY"] = "your_jwt_secret_key"
 
 # Configure secret key
-app.config['SECRET_KEY'] = 'your_secret_key'
+app.config["SECRET_KEY"] = "your_secret_key"
 
 # Initialize JWT Manager
 jwt = JWTManager(app)
@@ -27,14 +27,14 @@ jwt = JWTManager(app)
 users = {
     "user1": {
         "username": "user1",
-        "password": generate_password_hash("password"),
-        "role": "user",
-    },
+        "password": generate_password_hash("password")
+        "role": "user"
+    }
     "admin1": {
         "username": "admin1",
-        "password": generate_password_hash("password"),
-        "role": "admin",
-    },
+        "password": generate_password_hash("password")
+        "role": "admin"
+    }
 }
 
 # JWT error handlers
