@@ -82,7 +82,10 @@ def verify_password(username, password):
 # Route to get JWT token after login
 @app.route("/login", methods=["POST"])
 def user_login():
-    """Authenticate user and return JWT token"""
+    """
+    new user and return jwt access token
+    """
+
     username = request.json["username"]
     password = request.json["password"]
 
