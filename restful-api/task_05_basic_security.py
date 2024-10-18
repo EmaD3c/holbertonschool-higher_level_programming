@@ -18,7 +18,7 @@ app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'
 
 # Configure secret key
-app.config['SECRET_KEY'] = 'your__secret_key'
+app.config['SECRET_KEY'] = 'your_secret_key'
 
 # Initialize JWT Manager
 jwt = JWTManager(app)
@@ -88,10 +88,10 @@ def user_login():
 
     user = users.get(username)
 
-    if not users:
+    if not user:
         return jsonify({"error": "Invalid credentials"}), 401
 
-    if not check_password_hash(users[username], password):
+    if not check_password_hash(user[password], password):
         return jsonify({"error": "Invalid credentials"}), 401
 
     access_token = create_access_token(
