@@ -91,7 +91,7 @@ def user_login():
     if not user:
         return jsonify({"error": "Invalid credentials"}), 401
 
-    if not check_password_hash(user[password], password):
+    if not check_password_hash(user["password"], password):
         return jsonify({"error": "Invalid credentials"}), 401
 
     access_token = create_access_token(
