@@ -100,27 +100,8 @@ def user_login():
     return jsonify(access_token=access_token), 200
 
 
-@app.route("/login", methods=["POST"])
-def user_login():
-    if not request.is_json:
-        return jsonify({"error": "Invalid input format, expected JSON"}), 400
-
-    username = request.json.get("username", None)
-    password = request.json.get("password", None)
-
-    if not username or not password:
-        return jsonify({"error": "Missing username or password"}), 400
-
-    user = users.get(username)
-    if not user or not check_password_hash(user["password"], password):
-        return jsonify({"error": "Invalid credentials"}), 401
-
-    access_token = create_access_token(identity={"username": username, "role": user["role"]})
-    return jsonify(access_token=access_token), 200
-
-
 # JWT-protected route
-@app.route('/jwt_protected')
+@app.route("/jwt_protected")
 @jwt_required()
 def jwt_protected():
     """Access route protected by JWT"""
@@ -128,7 +109,7 @@ def jwt_protected():
 
 
 # Basic Auth-protected route
-@app.route('/basic-protected')
+@app.route("/basic-protected")
 @auth.login_required
 def basic_protected():
     """Access route protected by Basic Auth"""
@@ -144,5 +125,5 @@ def admin_only():
     return "Admin Access: Granted", 200
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()
