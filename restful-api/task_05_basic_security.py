@@ -82,7 +82,7 @@ def handle_needs_fresh_token_error(err):
     needs fresh token error of JWT
     """
 
-    return jsonify({"error": "Fresh token required"}), 401  
+    return jsonify({"error": "Fresh token required"}), 401
 
 
 # Basic Auth verification
