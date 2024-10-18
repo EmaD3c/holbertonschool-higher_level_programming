@@ -7,7 +7,7 @@ from flask import Flask, jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_httpauth import HTTPBasicAuth
 from flask_jwt_extended import JWTManager, create_access_token
-from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
 # Initialize HTTP Basic Auth and Flask app
@@ -88,7 +88,7 @@ def user_login():
 
     user = users.get(username)
 
-    if username not in users:
+    if not users:
         return jsonify({"error": "Invalid credentials"}), 401
 
     if not check_password_hash(users[username], password):
@@ -101,7 +101,7 @@ def user_login():
 
 
 # JWT-protected route
-@app.route('/jwt_protected', methods=['GET'])
+@app.route('/jwt_protected')
 @jwt_required()
 def jwt_protected():
     """Access route protected by JWT"""
@@ -111,12 +111,12 @@ def jwt_protected():
 # Basic Auth-protected route
 @app.route('/basic-protected')
 @auth.login_required
-def hash_protected():
+def basic_protected():
     """Access route protected by Basic Auth"""
     return "Basic Auth: Access Granted", 200
 
 
-@app.route("/admin-only", methods=["GET"])
+@app.route("/admin-only")
 @jwt_required()
 def admin_only():
     """Access to admin only."""
