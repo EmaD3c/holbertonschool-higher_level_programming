@@ -90,7 +90,8 @@ def handle_needs_fresh_token_error(err):
 def verify_password(username, password):
     """Check if username and password are valid"""
     if username in users:
-        return check_password_hash(users[username]["password"], password)
+        if check_password_hash(users[username]["password"], password):
+            return username
     return None
 
 
