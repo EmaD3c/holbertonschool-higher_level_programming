@@ -1,5 +1,4 @@
 -- lists all shows contained in hbtn_0d_tvshows that have at least one genre linked
-USE hbtn_0d_tvshows;
 
 SELECT tv_shows.title, tv_show_genres.genre_id FROM tv_shows
 -- récupérer les titres des émissions tv_shows.title en fonction des genres associés via l’identifiant de l’émission tv_show_genres.show_id
