@@ -25,7 +25,8 @@ if __name__ == "__main__":
     cursor = dataB.cursor()
 
     # Récupérer tous les états commençant par 'N', triés par ID
-    cursor.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
+    cursor.execute("SELECT * FROM states WHERE name\
+    LIKE BINARY 'N%' ORDER BY id ASC")
 
     # Récupérer tous les résultats de la requête
     states = cursor.fetchall()
