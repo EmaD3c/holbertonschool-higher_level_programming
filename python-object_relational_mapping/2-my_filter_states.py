@@ -26,7 +26,7 @@ if __name__ == "__main__":
     cursor = dataB.cursor()
 
     # requête SQL pour récupérer les états correspondant au nom donné
-    query = "SELECT * FROM states WHERE name = '{}'\
+    query = "SELECT * FROM states WHERE BINARY name = '{}'\
     ORDER BY id ASC".format(state_searched)
     cursor.execute(query)
 
