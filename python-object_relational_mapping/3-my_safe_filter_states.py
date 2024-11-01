@@ -29,6 +29,7 @@ if __name__ == "__main__":
     query = "SELECT * FROM states WHERE name = %s ORDER BY id ASC"
     # Utilisation des paramètres de requête
     cursor.execute(query, (state_searched,))
+
     # Récupérer tous les résultats de la requête
     states = cursor.fetchall()
 
