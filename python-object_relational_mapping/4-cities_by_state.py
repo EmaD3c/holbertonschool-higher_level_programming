@@ -24,7 +24,7 @@ if __name__ == "__main__":
     # Créer un curseur pour exécuter des commandes SQL
     cursor = dataB.cursor()
 
-    # Exécuter la requête SQL pour récupérer toutes les villes avec le nom de l'état
+    # requête SQL pour récupérer toutes les villes avec le nom de l'état
     cursor.execute("""
         SELECT cities.id, cities.name, states.name
         FROM cities
