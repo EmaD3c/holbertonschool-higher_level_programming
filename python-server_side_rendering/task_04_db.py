@@ -92,34 +92,19 @@ def products():
 
 
 # Helper function to read data from SQLite database
-# Helper function to read data from SQLite with enhanced error handling
 def read_sql_data(filename, product_id=None):
-    products = []  # Initialize an empty list to store the product data
-    message = None  # Initialize message variable to capture any error message
-
+    products = []
     try:
-        # Establish the database connection
         conn = sqlite3.connect(filename)
         cursor = conn.cursor()
-
-        # If an id is provided, execute a query to fetch the specific product
         if product_id:
-            query = (
-              "SELECT id, name, category, price "
-              "FROM Products "
-              "WHERE id = ?"
-            )
-
-            cursor.execute(query, (product_id,))
+            cursor.execute(
+              "SELECT id, name, category, price FROM Products WHERE id = ?", (
+                    product_id,))
         else:
-            # Otherwise, fetch all products
-            query = "SELECT id, name, category, price FROM Products"
-            cursor.execute(query)
-
-        # Fetch the result of the query
+            cursor.execute(
+                "SELECT id, name, category, price FROM Products")
         rows = cursor.fetchall()
-
-        # Process the fetched rows into a list of dictionaries
         for row in rows:
             products.append({
                 'id': row[0],
@@ -127,24 +112,10 @@ def read_sql_data(filename, product_id=None):
                 'category': row[2],
                 'price': row[3]
             })
-
-        # Close the database connection
         conn.close()
-
-        # If no products were found, set a message
-        if not products:
-            message = "No products found."
-
     except sqlite3.Error as e:
-        # Capture any database errors
-        message = f"Database error: {e}"
-
-    except Exception as e:
-        # Capture any other unexpected errors
-        message = f"An error occurred: {e}"
-
-    # Return the products
-    return products, message
+        print(f"Database error: {e}")
+    return products
 
 
 # Start the Flask application
