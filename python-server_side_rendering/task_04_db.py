@@ -91,23 +91,30 @@ def read_sql_data(filename):
 # Route affiche les produits en fonction de la source et de l'id facultatif
 @app.route('/products', methods=['GET'])
 def display_products():
-    """Affiche les produits en fonction de la source (JSON, CSV ou SQL)"""
+    # récupère la source (json, csv, ou une source invalide)
     source = request.args.get('source', '')
+    # récupère l'id
     product_id = request.args.get('id', type=int)
     message = None
     products = []
 
+    # Si la source n'est pas json ou csv
     if source not in ['json', 'csv', 'sql']:
-        message = "Source incorrecte"
+        message = "Wrong source"
 
     try:
         if source == 'json':
+            # ouvre le fichier json et assigne le contenu à products
             with open('products.json', 'r') as file:
                 products = json.load(file)
 
         elif source == 'csv':
+            # ouvre le fichier csv et convertie les infos en dict
+            # avant de l'écrire dans la variable reader
             with open('products.csv', 'r') as file:
                 reader = csv.DictReader(file)
+                # créer une liste contenant chaque ligne
+                # du CSV sous forme de dictionnaire
                 products = [row for row in reader]
 
         elif source == 'sql':
@@ -115,10 +122,7 @@ def display_products():
             cur = con.cursor()
 
             if product_id:
-                print(
-                  f"Exécution de la requête : SELECT * FROM Products WHERE "
-                  f"id = {product_id}"
-                )
+                print(f"Executing query: SELECT * FROM Products WHERE id = {product_id}")
                 query = "SELECT * FROM Products WHERE id = ?"
                 cur.execute(query, (product_id,))
             else:
@@ -126,34 +130,31 @@ def display_products():
                 cur.execute(query)
 
             products = [
-                {
-                    'id': row[0],
-                    'name': row[1],
-                    'category': row[2],
-                    'price': row[3]
-                }
-                for row in cur.fetchall()
-            ]
+                {'id': row[0], 'name': row[1], 'category': row[2], 'price': row[3]
+                 } for row in cur.fetchall()]
             con.close()
 
-            print(f"Produits récupérés : {products}")
+            print(f"Products fetched: {products}")
 
+        # Si id n'est pas NULL (donc si un id a été fournis)
         if product_id:
+            # remplace la liste products par une nouvelle liste
+            # contenant le product dans products qui a une clé "id"
+            # correspondant à product_id
             products = [
-                product for product in products if product['id'] == product_id
-            ]
-            print(f"Produits filtrés : {products}")
+                product for product in products if product['id'] == product_id]
+            print(f"Filtered Products: {products}")
+            # Si la correspondance n'existe pas
             if not products:
-                message = "Produit non trouvé."
+                message = "Product not found."
 
     except FileNotFoundError:
-        message = "Fichier introuvable."
+        message = "File not found."
 
     except Exception as e:
-        message = f"Une erreur est survenue : {e}"
+        message = f"An error occurred: {e}"
 
-    return render_template(
-        'product_display.html', products=products, message=message)
+    return render_template('product_display.html', products=products, message=message)
 
 
 if __name__ == '__main__':
