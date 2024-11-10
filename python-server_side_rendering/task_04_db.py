@@ -61,7 +61,7 @@ def read_csv_file(filename):
     return products
 
 
-# Route pour afficher les produits
+# Route qui afficher les produits en fonction de la source et de l'id optionnel
 @app.route('/products')
 def products():
     source = request.args.get('source')
@@ -92,24 +92,29 @@ def products():
 
 
 # Fonction auxiliaire pour lire les données depuis une base de données SQLite
-def read_sql_data(filename):
+def read_sql_data(db_file, product_id=None):
     products = []
     try:
-        conn = sqlite3.connect(filename)
-        cursor = conn.cursor()
-        cursor.execute("SELECT id, name, category, price FROM Products")
-        rows = cursor.fetchall()
-        for row in rows:
-            products.append({
-                'id': row[0],
-                'name': row[1],
-                'category': row[2],
-                'price': row[3]
-            })
-        conn.close()
+        connection = sqlite3.connect(db_file)
+        cursor = connection.cursor()
+        if product_id:
+            cursor.execute(
+              "SELECT id, name, category, price FROM Products WHERE id = ?", (
+                    product_id,))
+        else:
+            cursor.execute(
+                "SELECT id, name, category, price FROM Products")
+        products = cursor.fetchall()
+        connection.close()
     except sqlite3.Error as e:
-        print(f"Database error: {e}")
-    return products
+        error_message = f"Error reading from SQLite database: {e}"
+        print(error_message)
+        return []
+
+    return [
+        {"id": id, "name": name, "category": category, "price": price}
+        for id, name, category, price in products
+    ]
 
 
 # Démarre l'application Flask
