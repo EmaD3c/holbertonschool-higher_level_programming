@@ -5,10 +5,61 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+
 # Route for the home page
 @app.route('/')
 def home():
     return render_template('index.html')
+
+
+# Route for the about page
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
+# Route for the contact page
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+
+# The /items route reads the JSON file items
+@app.route('/items')
+def items():
+    try:
+        with open('items.json', 'r') as f:
+            data = json.load(f)
+            item_data = data.get("items", [])
+    except FileNotFoundError:
+        item_data = []
+
+    return render_template('items.html', items=item_data)
+
+
+# Helper function to read JSON data from a file
+def read_json_file(filename):
+    try:
+        with open(filename, 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+
+
+# Helper function to read CSV data from a file
+def read_csv_file(filename):
+    products = []
+    try:
+        with open(filename, 'r') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                row['id'] = int(row['id'])
+                row['price'] = float(row['price'])
+                products.append(row)
+    except FileNotFoundError:
+        pass
+    return products
+
 
 # Route to display products based on the source and optional id
 @app.route('/products')
@@ -36,7 +87,9 @@ def products():
         if not products:
             error = "Product not found with the provided ID."
 
-    return render_template('product_display.html', products=products, error=error)
+    return render_template(
+        'product_display.html', products=products, error=error)
+
 
 # Helper function to read data from SQLite database
 def read_sql_data(filename, product_id=None):
@@ -45,9 +98,12 @@ def read_sql_data(filename, product_id=None):
         conn = sqlite3.connect(filename)
         cursor = conn.cursor()
         if product_id:
-            cursor.execute("SELECT id, name, category, price FROM Products WHERE id = ?", (product_id,))
+            cursor.execute(
+              "SELECT id, name, category, price FROM Products WHERE id = ?", (
+                    product_id,))
         else:
-            cursor.execute("SELECT id, name, category, price FROM Products")
+            cursor.execute(
+                "SELECT id, name, category, price FROM Products")
         rows = cursor.fetchall()
         for row in rows:
             products.append({
@@ -61,26 +117,6 @@ def read_sql_data(filename, product_id=None):
         print(f"Database error: {e}")
     return products
 
-# Helper functions to read JSON and CSV files
-def read_json_file(filename):
-    try:
-        with open(filename, 'r') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return []
-
-def read_csv_file(filename):
-    products = []
-    try:
-        with open(filename, 'r') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                row['id'] = int(row['id'])
-                row['price'] = float(row['price'])
-                products.append(row)
-    except FileNotFoundError:
-        pass
-    return products
 
 # Start the Flask application
 if __name__ == '__main__':
