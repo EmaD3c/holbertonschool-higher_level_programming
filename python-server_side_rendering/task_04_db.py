@@ -92,13 +92,11 @@ def products():
     error = None
 
     if source == "json":
-        products = read_json_file('products.json')
+        products = read_json_file()
     elif source == "csv":
-        products = read_csv_file('products.csv')
-    elif source == "sql":
-        products = read_sql_data('products.db')
+        products = read_csv_file()
     else:
-        error = "Wrong source specified. Please use 'json', 'csv', or 'sql'."
+        error = "Wrong source specified. Please use 'json' or 'csv'."
         return render_template('product_display.html', error=error)
 
     if product_id:
@@ -107,7 +105,8 @@ def products():
             error = "Product not found."
 
     return render_template(
-        'product_display.html', products=products, error=error)
+        'product_display.html', products=products, error=error
+    )
 
 
 if __name__ == '__main__':
