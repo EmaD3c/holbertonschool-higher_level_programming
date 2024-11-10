@@ -6,25 +6,25 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 
-# Route for the home page
+# Route pour la page d'accueil
 @app.route('/')
 def home():
     return render_template('index.html')
 
 
-# Route for the about page
+# Route pour la page "About"
 @app.route('/about')
 def about():
     return render_template('about.html')
 
 
-# Route for the contact page
+# Route pour la page "Contact"
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
 
 
-# The /items route reads the JSON file items
+# La route /items lit le fichier JSON des articles
 @app.route('/items')
 def items():
     try:
@@ -37,7 +37,7 @@ def items():
     return render_template('items.html', items=item_data)
 
 
-# Helper function to read JSON data from a file
+# Fonction auxiliaire pour lire les données JSON à partir d'un fichier
 def read_json_file(filename):
     try:
         with open(filename, 'r') as f:
@@ -46,7 +46,7 @@ def read_json_file(filename):
         return []
 
 
-# Helper function to read CSV data from a file
+# Fonction auxiliaire pour lire les données CSV à partir d'un fichier
 def read_csv_file(filename):
     products = []
     try:
@@ -61,15 +61,15 @@ def read_csv_file(filename):
     return products
 
 
-# Route to display products based on the source and optional id
+# Route pour afficher les produits
 @app.route('/products')
 def products():
     source = request.args.get('source')
-    product_id = request.args.get('id', type=int)  # Get product ID if provided
-    products = []  # Initialize an empty list for products
-    error = None  # Initialize error message as None
+    product_id = request.args.get('id', type=int)
+    products = []  # Initialise une liste vide pour les produits
+    error = None  # Initialise le message d'erreur à None
 
-    # Check the source and read the appropriate data
+    # Vérifie la source et lit les données appropriées
     if source == "json":
         products = read_json_file('products.json')
     elif source == "csv":
@@ -81,7 +81,7 @@ def products():
     else:
         error = "Wrong source specified. Please use 'json', 'csv', or 'sql'."
 
-    # If product_id is provided, filter products by id
+    # Si un product_id est fourni, filtre les produits par id
     if product_id:
         products = [p for p in products if p['id'] == product_id]
         if not products:
@@ -91,19 +91,13 @@ def products():
         'product_display.html', products=products, error=error)
 
 
-# Helper function to read data from SQLite database
-def read_sql_data(filename, product_id=None):
+# Fonction auxiliaire pour lire les données depuis une base de données SQLite
+def read_sql_data(filename):
     products = []
     try:
         conn = sqlite3.connect(filename)
         cursor = conn.cursor()
-        if product_id:
-            cursor.execute(
-              "SELECT id, name, category, price FROM Products WHERE id = ?", (
-                    product_id,))
-        else:
-            cursor.execute(
-                "SELECT id, name, category, price FROM Products")
+        cursor.execute("SELECT id, name, category, price FROM Products")
         rows = cursor.fetchall()
         for row in rows:
             products.append({
@@ -118,6 +112,6 @@ def read_sql_data(filename, product_id=None):
     return products
 
 
-# Start the Flask application
+# Démarre l'application Flask
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
