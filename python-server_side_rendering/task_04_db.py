@@ -94,12 +94,19 @@ def products():
 
 
 # Helper function to read data from SQLite database
-def read_sql_data(filename):
+def read_sql_data(filename, product_id=None):
     products = []
     try:
         conn = sqlite3.connect(filename)
         cursor = conn.cursor()
-        cursor.execute("SELECT id, name, category, price FROM Products")
+        if product_id:
+            # Filter by ID if it's provided
+            cursor.execute(
+              "SELECT id, name, category, price FROM Products WHERE id = ?", (
+                    product_id,))
+        else:
+            # Get all products if no ID is provided
+            cursor.execute("SELECT id, name, category, price FROM Products")
         rows = cursor.fetchall()
         for row in rows:
             products.append({
