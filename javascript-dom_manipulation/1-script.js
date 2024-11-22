@@ -1,7 +1,6 @@
-function change_color() {
-  const color = document.querySelector("header").style.color = "#FF0000";
+const redHeader = document.querySelector("#red_header");
+const header = document.querySelector("header");
 
-  if (red_header) {
-    return color;
-  }
-};
+redHeader.addEventListener("click", () => {
+  header.style.color = "#FF0000";
+});
